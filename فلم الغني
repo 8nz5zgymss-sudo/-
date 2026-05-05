@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7RS - The Last Signal</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+    font-family: monospace;
+    color: white;
+}
+
+/* الفيديو */
+video {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(40%) contrast(120%);
+}
+
+/* طبقة Glitch */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.02) 0px,
+        rgba(255,255,255,0.02) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    animation: flicker 0.2s infinite;
+}
+
+@keyframes flicker {
+    0% {opacity: 0.2;}
+    50% {opacity: 0.05;}
+    100% {opacity: 0.2;}
+}
+
+/* النص */
+.text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 40%;
+    font-size: 24px;
+    letter-spacing: 2px;
+    animation: glitchText 2s infinite;
+}
+
+@keyframes glitchText {
+    0% {text-shadow: 2px 2px red;}
+    50% {text-shadow: -2px -2px white;}
+    100% {text-shadow: 2px 2px red;}
+}
+
+/* زر الصوت */
+button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: 1px solid red;
+    padding: 10px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- حط هنا رابط الفيديو حقك -->
+<video autoplay muted loop playsinline id="bgVideo">
+    <source src="YOUR_VIDEO.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<div class="text" id="text">...</div>
+
+<button onclick="enableSound()">🔊 تشغيل الصوت</button>
+
+<script>
+const scenes = [
+"There were days when I fought...",
+"But they disappeared...",
+"7RS is watching...",
+"No escape...",
+"aKa 7rs",
+"You can't run from what you are...",
+"AnFLaTy was never alone...",
+"He was 7rs."
+];
+
+let i = 0;
+const text = document.getElementById("text");
+
+function nextScene() {
+    text.innerText = scenes[i];
+    i++;
+    if(i >= scenes.length) i = 0;
+}
+
+setInterval(nextScene, 3000);
+
+/* تشغيل الصوت */
+function enableSound() {
+    const video = document.getElementById("bgVideo");
+    video.muted = false;
+    video.play();
+}
+</script>
+
+</body>
+</html>
